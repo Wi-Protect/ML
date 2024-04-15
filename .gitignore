@@ -162,3 +162,4 @@ cython_debug/
 csi_data.csv
 new_combined.csv
 coefficients.csv
+downsampled_data.csv
