@@ -160,3 +160,5 @@ cython_debug/
 #.idea/
 
 csi_data.csv
+new_combined.csv
+coefficients.csv
