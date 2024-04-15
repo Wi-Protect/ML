@@ -163,3 +163,5 @@ csi_data.csv
 new_combined.csv
 coefficients.csv
 downsampled_data.csv
+pca.csv
+wavelet.csv
