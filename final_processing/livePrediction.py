@@ -319,27 +319,32 @@ ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
 ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
                      bytesize=8, parity='N', stopbits=1)
 
-while True:
 
-    if i % 5 == 0:
+def startPrediction():
 
-        ser2.close()
-        ser1.close()
+    while True:
 
-        ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
+        if i % 5 == 0:
 
-        ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
+            ser2.close()
+            ser1.close()
 
-    csi_data = pd.DataFrame(csi_data_read_parse(ser1, ser2))
+            ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
 
-    csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
+            ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
 
-    pred = getPrediction(csi_data)
+            i = 0
 
-    print("Time" + str(datetime.datetime.now()))
+        csi_data = pd.DataFrame(csi_data_read_parse(ser1, ser2))
 
-    print("activity" + str(pred))
+        csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
 
-    i += 1
+        pred = getPrediction(csi_data)
+
+        print("Time" + str(datetime.datetime.now()))
+
+        print("activity" + str(pred))
+
+        i += 1
