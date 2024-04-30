@@ -348,3 +348,6 @@ def startPrediction():
         print("activity" + str(pred))
 
         i += 1
+
+
+startPrediction()
