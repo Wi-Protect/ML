@@ -1,4 +1,5 @@
 from io import StringIO
+import json
 import serial
 import csv
 
@@ -39,9 +40,16 @@ while True:
         print("element number is not equal")
         continue
 
+    try:
+        csi_raw_data1 = json.loads(csi_data1[-1])
+        csi_raw_data2 = json.loads(csi_data2[-1])
+    except json.JSONDecodeError:
+        print(f"data is incomplete")
+        continue
+
     print('CSI_DATA_1')
-    print(csi_data1)
+    print(csi_raw_data1)
     print("--------------------------")
     print('CSI_DATA_2')
-    print(csi_data2)
+    print(csi_raw_data2)
     print("--------------------------")
