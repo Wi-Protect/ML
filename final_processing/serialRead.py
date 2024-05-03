@@ -16,3 +16,4 @@ while True:
     print(strings1)
     print("---------------")
     print(strings2)
+    print("---------------")
