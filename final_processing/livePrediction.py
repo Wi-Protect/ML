@@ -229,7 +229,7 @@ def predict(prediction):
             return prediction
         else:
             if len(recent) > 3:
-                if recent == prediction:
+                if recent[len(recent)-1] == prediction:
                     addRecent(prediction)
                     return prediction
                 else:
