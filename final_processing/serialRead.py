@@ -47,6 +47,14 @@ while True:
         print(f"data is incomplete")
         continue
 
+    if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
+        print(f"element number is not equal: {len(csi_raw_data1)}")
+        continue
+
+    if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
+        print(f"element number is not equal: {len(csi_raw_data2)}")
+        continue
+
     print('CSI_DATA_1')
     print(csi_raw_data1)
     print("--------------------------")
