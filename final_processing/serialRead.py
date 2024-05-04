@@ -56,10 +56,10 @@ def csi_data_read_parse():
     #     print("open failed SER 2")
 
     ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                     bytesize=8, parity='N', stopbits=1)
+                         bytesize=8, parity='N', stopbits=1)
 
     ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                     bytesize=8, parity='N', stopbits=1)
+                         bytesize=8, parity='N', stopbits=1)
 
     count = 0
 
@@ -159,6 +159,8 @@ def csi_data_read_parse():
             if count >= 25:
                 strings1 = ""
                 strings2 = ""
+                ser1.close()
+                ser2.close()
                 return csi_list
                 # print("Data Collected")
             else:
