@@ -306,7 +306,7 @@ def caliberate():
 
 
 SERIAL_PORT_1 = 'COM4'
-SERIAL_PORT_2 = 'COM12'
+SERIAL_PORT_2 = 'COM11'
 
 caliberate()
 
