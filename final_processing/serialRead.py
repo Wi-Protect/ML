@@ -39,10 +39,10 @@ wavelet_name = 'gaus1'
 
 scales = np.arange(1, 128)
 
-ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
+ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=115200,
                      bytesize=8, parity='N', stopbits=1)
 
-ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
+ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=115200,
                      bytesize=8, parity='N', stopbits=1)
 
 
