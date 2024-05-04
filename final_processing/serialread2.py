@@ -87,7 +87,9 @@ for j in range(20):
             continue
 
         try:
+            print(csi_data1[-1])
             csi_raw_data1 = json.loads(csi_data1[-1])
+            print(csi_raw_data1)
             csi_raw_data2 = json.loads(csi_data2[-1])
         except json.JSONDecodeError:
             print(f"data is incomplete")
