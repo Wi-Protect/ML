@@ -49,6 +49,10 @@ ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
 
 count = 0
 
+csi_list = np.zeros((1, 260))
+
+startTime = datetime.datetime.now()
+
 while True:
     strings1 = str(ser1.readline())
     strings2 = str(ser2.readline())
