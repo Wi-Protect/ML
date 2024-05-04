@@ -24,12 +24,6 @@ AMP_AND_PHASE_COLUMNS_NAMES = ['id', 'time', 'amplitude1_1', 'amplitude2_1', 'am
 SERIAL_PORT_1 = '/dev/ttyUSB0'
 SERIAL_PORT_2 = '/dev/ttyUSB1'
 
-ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                     bytesize=8, parity='N', stopbits=1)
-
-ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                     bytesize=8, parity='N', stopbits=1)
-
 save_dir = './models/'
 
 gmm_models = []
@@ -46,16 +40,13 @@ wavelet_name = 'gaus1'
 scales = np.arange(1, 128)
 
 
-def csi_data_read_parse(ser1, ser2):
-    # if ser1.isOpen():
-    #     print("open success SER 1")
-    # else:
-    #     print("open failed SER 1")
+def csi_data_read_parse():
 
-    # if ser2.isOpen():
-    #     print("open success SER 2")
-    # else:
-    #     print("open failed SER 2")
+    ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
+                         bytesize=8, parity='N', stopbits=1)
+
+    ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
+                         bytesize=8, parity='N', stopbits=1)
 
     count = 0
 
@@ -155,6 +146,8 @@ def csi_data_read_parse(ser1, ser2):
         else:
 
             if count >= 25:
+                ser1.close()
+                ser2.close()
                 return csi_list
             else:
                 count -= 1
@@ -183,11 +176,11 @@ def calibrate():
 
     for i in range(20):
 
-        csi_data = csi_data_read_parse(ser1, ser2)
+        csi_data = csi_data_read_parse()
 
         csi_data = pd.DataFrame(csi_data)
 
-        print(csi_data)
+        # print(csi_data)
 
     #     csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
 
