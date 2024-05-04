@@ -149,7 +149,8 @@ def csi_data_read_parse():
         else:
 
             if count >= 25:
-                print("Data Collected")
+                # print("Data Collected")
+                return csi_list
             else:
                 count -= 1
                 csi_list = np.delete(csi_list, np.s_[:1], axis=0)
