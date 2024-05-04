@@ -30,6 +30,9 @@ ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
 ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
                      bytesize=8, parity='N', stopbits=1)
 
+ser1.set_buffer_size(rx_size=1024*1024, tx_size=1024*1024)
+ser2.set_buffer_size(rx_size=1024*1024, tx_size=1024*1024)
+
 gmm_models = []
 for i in range(6):
     model_filename = f'gmm_model_{i}.pkl'
@@ -87,8 +90,8 @@ def csi_data_read_parse():
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
             print("element number is not equal")
-            ser1.flush()
-            ser2.flush()
+            print(index1)
+            print(index2)
             continue
 
         try:
@@ -96,20 +99,14 @@ def csi_data_read_parse():
             csi_raw_data2 = json.loads(csi_data2[-1])
         except json.JSONDecodeError:
             print(f"data is incomplete")
-            ser1.flush()
-            ser2.flush()
             continue
 
         if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
             print(f"element number is not equal: {len(csi_raw_data1)}")
-            ser1.flush()
-            ser2.flush()
             continue
 
         if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
             print(f"element number is not equal: {len(csi_raw_data2)}")
-            ser1.flush()
-            ser2.flush()
             continue
 
         imaginary1 = []
