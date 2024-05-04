@@ -62,8 +62,8 @@ def csi_data_read_parse():
     startTime = datetime.datetime.now()
 
     while True:
-        strings1 = str(ser1.read_until(terminator=b'\n'))
-        strings2 = str(ser2.read_until(terminator=b'\n'))
+        strings1 = str(ser1.read_until(b'\n'))
+        strings2 = str(ser2.read_until(b'\n'))
 
         if not strings1 or not strings2:
             continue
