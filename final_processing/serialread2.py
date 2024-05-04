@@ -89,16 +89,16 @@ for j in range(20):
         try:
             print("----1-----")
             print(csi_data1[-1])
-            print("csi data1 len: ", len(list(csi_data1[-1])))
-            csi_raw_data1 = json.loads(csi_data1[-1])
+            # print("csi data1 len: ", len(list(csi_data1[-1])))
+            csi_raw_data1 = csi_data1[-1].split(",")
             print(csi_raw_data1)
-            print("JSON 1 len: ", len(csi_raw_data1))
+            print("Converted data 1 len: ", len(csi_raw_data1))
 
-            print("----2-----")
-            print(csi_data2[-1])
-            print("csi_data2 len : ", len(list(csi_data2[-1])))
+            # print("----2-----")
+            # print(csi_data2[-1])
+            # print("csi_data2 len : ", len(list(csi_data2[-1])))
             csi_raw_data2 = json.loads(csi_data2[-1])
-            print("JSON 2 len: ", len(csi_raw_data2))
+            # print("JSON 2 len: ", len(csi_raw_data2))
             
         except json.JSONDecodeError:
             print(f"data is incomplete")
