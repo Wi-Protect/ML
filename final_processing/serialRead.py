@@ -25,10 +25,10 @@ save_dir = './models/'
 
 
 ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                     bytesize=8, parity='N', stopbits=1, timeout=2)
+                     bytesize=8, parity='N', stopbits=1, read_buffer_size=1000000, timeout=2)
 
 ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                     bytesize=8, parity='N', stopbits=1, timeout=2)
+                     bytesize=8, parity='N', stopbits=1, read_buffer_size=1000000, timeout=2)
 
 
 gmm_models = []
