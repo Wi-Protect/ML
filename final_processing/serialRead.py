@@ -91,6 +91,8 @@ def csi_data_read_parse():
         csi_data2 = next(csv_reader2)
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
+            ser1.reset_input_buffer()
+            ser2.reset_input_buffer()
             print("element number is not equal")
             print(index1)
             print(index2)
@@ -100,14 +102,18 @@ def csi_data_read_parse():
             csi_raw_data1 = json.loads(csi_data1[-1])
             csi_raw_data2 = json.loads(csi_data2[-1])
         except json.JSONDecodeError:
+            ser1.reset_input_buffer()
+            ser2.reset_input_buffer()
             print(f"data is incomplete")
             continue
 
         if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
+            ser1.reset_input_buffer()
             print(f"element number is not equal: {len(csi_raw_data1)}")
             continue
 
         if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
+            ser2.reset_input_buffer()
             print(f"element number is not equal: {len(csi_raw_data2)}")
             continue
 
