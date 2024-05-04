@@ -61,3 +61,28 @@ while True:
     print('CSI_DATA_2')
     print(csi_raw_data2)
     print("--------------------------")
+
+    imaginary1 = []
+    real1 = []
+    imaginary2 = []
+    real2 = []
+    amplitudes = []
+    phases = []
+
+    # print(csi_raw_data[0])
+
+    for i in range(len(csi_raw_data1)):
+        if i % 2 == 0:
+            imaginary1.append(csi_raw_data1[i])
+            print("Append to Imaginary index:", i)
+        else:
+            real1.append(csi_raw_data1[i])
+            print("Append to Real index:", i)
+
+    for i in range(len(csi_raw_data2)):
+        if i % 2 == 0:
+            imaginary2.append(csi_raw_data2[i])
+            print("Append to Imaginary index:", i)
+        else:
+            real2.append(csi_raw_data2[i])
+            print("Append to Real index:", i)
