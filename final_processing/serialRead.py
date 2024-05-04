@@ -70,6 +70,10 @@ def csi_data_read_parse():
 
         strings1 = strings1.lstrip('b\'').rstrip('\\r\\n\'')
         strings2 = strings2.lstrip('b\'').rstrip('\\r\\n\'')
+
+        strings1 = strings1.lstrip(',')
+        strings2 = strings2.lstrip(',')
+
         index1 = strings1.find('CSI_DATA')
         index2 = strings2.find('CSI_DATA')
 
