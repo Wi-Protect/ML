@@ -83,8 +83,6 @@ def csi_data_read_parse():
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
             print("element number is not equal")
-            print(csi_data1)
-            print(csi_data2)
             continue
 
         try:
@@ -92,18 +90,14 @@ def csi_data_read_parse():
             csi_raw_data2 = json.loads(csi_data2[-1])
         except json.JSONDecodeError:
             print(f"data is incomplete")
-            print(csi_data1)
-            print(csi_data2)
             continue
 
         if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
             print(f"element number is not equal: {len(csi_raw_data1)}")
-            print(csi_data1)
             continue
 
         if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
             print(f"element number is not equal: {len(csi_raw_data2)}")
-            print(csi_data2)
             continue
 
         imaginary1 = []
