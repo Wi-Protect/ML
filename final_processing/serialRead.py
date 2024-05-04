@@ -76,6 +76,16 @@ def csi_data_read_parse():
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
             print("element number is not equal")
+
+            ser1.close()
+            ser2.close()
+
+            ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
+
+            ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
+
             continue
 
         try:
@@ -83,15 +93,35 @@ def csi_data_read_parse():
             csi_raw_data2 = json.loads(csi_data2[-1])
         except json.JSONDecodeError:
             print(f"data is incomplete")
+
+            ser1.close()
+            ser2.close()
+
+            ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
+
+            ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
             continue
 
         if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
+
+            ser1.close()
+
+            ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
+                                 bytesize=8, parity='N', stopbits=1)
+
             print(f"element number is not equal: {len(csi_raw_data1)}")
 
             continue
 
         if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
             print(f"element number is not equal: {len(csi_raw_data2)}")
+
+            ser2.close()
+
+            ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
+                                    bytesize=8, parity='N', stopbits=1)
 
             continue
 
