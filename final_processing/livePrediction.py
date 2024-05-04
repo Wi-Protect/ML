@@ -78,6 +78,7 @@ def csi_data_read_parse(ser1, ser2):
 
         csv_reader1 = csv.reader(StringIO(strings1))
         csv_reader2 = csv.reader(StringIO(strings2))
+        time.sleep(0.01)    # delay for 10 ms
         csi_data1 = next(csv_reader1)
         csi_data2 = next(csv_reader2)
 
