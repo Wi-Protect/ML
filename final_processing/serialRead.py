@@ -65,7 +65,7 @@ def csi_data_read_parse():
         strings1 = str(ser1.readline())
         strings2 = str(ser2.readline())
         # print(strings)
-        if not strings1 or not strings2:
+        if strings1 == "" or not strings2 == "":
             continue
 
         strings1 = strings1.lstrip('b\'').rstrip('\\r\\n\'')
@@ -151,9 +151,9 @@ def csi_data_read_parse():
         else:
 
             if count >= 25:
-                # strings1 = ""
-                # strings2 = ""
-                return csi_list
+                strings1 = ""
+                strings2 = ""
+                # return csi_list
                 print("Data Collected")
             else:
                 count -= 1
@@ -176,5 +176,7 @@ def csi_data_read_parse():
 
 a = 0
 
-csi = csi_data_read_parse()
-print("Data Collected : ")
+while True:
+    a += 1
+    csi = csi_data_read_parse()
+    print("Data Collected : ", a)
