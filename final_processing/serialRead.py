@@ -102,8 +102,8 @@ def csi_data_read_parse():
         except json.JSONDecodeError:
             ser1.reset_input_buffer()
             ser2.reset_input_buffer()
-            print(csi_raw_data1)
-            print(csi_raw_data2)
+            print(csi_data1)
+            print(csi_data2)
             print(f"data is incomplete")
             continue
 
