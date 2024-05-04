@@ -216,7 +216,7 @@ def calibrate():
 
     for i in range(20):
 
-        csi_data = csi_data_read_parse(ser1, ser2)
+        csi_data = csi_data_read_parse()
 
         csi_data = pd.DataFrame(csi_data)
 
