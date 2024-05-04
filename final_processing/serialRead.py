@@ -75,15 +75,6 @@ while True:
     if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
         print("element number is not equal")
 
-        ser1.close()
-        ser2.close()
-
-        ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
-
-        ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
-
         continue
 
     try:
@@ -92,22 +83,9 @@ while True:
     except json.JSONDecodeError:
         print(f"data is incomplete")
 
-        ser1.close()
-        ser2.close()
-
-        ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
-
-        ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
         continue
 
     if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
-
-        ser1.close()
-
-        ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
 
         print(f"element number is not equal: {len(csi_raw_data1)}")
 
@@ -115,11 +93,6 @@ while True:
 
     if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
         print(f"element number is not equal: {len(csi_raw_data2)}")
-
-        ser2.close()
-
-        ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                             bytesize=8, parity='N', stopbits=1)
 
         continue
 
@@ -174,8 +147,6 @@ while True:
     else:
 
         if count >= 25:
-            ser1.close()
-            ser2.close()
             print("Data Collected")
         else:
             count -= 1
@@ -194,41 +165,3 @@ while True:
                 startTime = datetime.datetime.now()
 
                 continue
-
-
-def calibrate():
-
-    print("Calibrating Started...")
-
-    # wavelet_list = np.zeros((1, 25))
-
-    for i in range(20):
-
-        csi_data = csi_data_read_parse()
-
-        csi_data = pd.DataFrame(csi_data)
-
-        # print(csi_data)
-
-    #     csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
-
-    #     forTrain = get25(csi_data)
-    #     wavelet = getWavelet(pd.DataFrame(forTrain))
-    #     wavelet_list = np.vstack([wavelet_list, wavelet])
-
-    #     print("Data Point Collected : ", i)
-
-    # wavelet_list = np.delete(wavelet_list, np.s_[:1], axis=0)
-
-    # wavelet_list = pd.DataFrame(wavelet_list)
-
-    # wavelet_list.columns = [str(i) for i in range(0, 25)]
-
-    # print("Calibrating...")
-
-    # gmm_models[0].fit(wavelet_list)
-
-    print("Calibration Completed...")
-
-
-calibrate()
