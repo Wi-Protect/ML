@@ -80,3 +80,24 @@ while True:
     real2 = []
     amplitudes = []
     phases = []
+
+    for i in range(len(csi_raw_data1)):
+        if i % 2 == 0:
+            imaginary1.append(csi_raw_data1[i])
+        else:
+            real1.append(csi_raw_data1[i])
+
+    for i in range(len(csi_raw_data2)):
+        if i % 2 == 0:
+            imaginary2.append(csi_raw_data2[i])
+        else:
+            real2.append(csi_raw_data2[i])
+
+    # Transform imaginary and real into amplitude and phase
+    for i in range(int(len(csi_raw_data1) / 2)):
+        amplitudes.append(sqrt(imaginary1[i] ** 2 + real1[i] ** 2))
+        phases.append(atan2(imaginary1[i], real1[i]))
+
+    for i in range(int(len(csi_raw_data2) / 2)):
+        amplitudes.append(sqrt(imaginary2[i] ** 2 + real2[i] ** 2))
+        phases.append(atan2(imaginary2[i], real2[i]))
