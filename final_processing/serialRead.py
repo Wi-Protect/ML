@@ -45,6 +45,8 @@ wavelet_name = 'gaus1'
 
 scales = np.arange(1, 128)
 
+count = 0
+
 
 while True:
     strings1 = str(ser1.readline())
