@@ -151,9 +151,9 @@ def csi_data_read_parse():
         else:
 
             if count >= 25:
-                strings1 = ""
-                strings2 = ""
-                # return csi_list
+                # strings1 = ""
+                # strings2 = ""
+                return csi_list
                 print("Data Collected")
             else:
                 count -= 1
@@ -176,7 +176,5 @@ def csi_data_read_parse():
 
 a = 0
 
-while True:
-    a += 1
-    csi_data_read_parse()
-    print("Data Collected : ", a)
+csi = csi_data_read_parse()
+print("Data Collected : ")
