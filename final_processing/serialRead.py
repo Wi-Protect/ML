@@ -181,9 +181,9 @@ def caliberate():
 
         csi_data = csi_data_read_parse()
 
-        csi_data = pd.DataFrame(csi_data)
+        # csi_data = pd.DataFrame(csi_data)
 
-        csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
+        # csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
 
         print("Data Collected :" + str(i))
 
