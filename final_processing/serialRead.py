@@ -2,6 +2,18 @@ from io import StringIO
 import json
 import serial
 import csv
+import datetime
+import numpy as np
+import csv
+from io import StringIO
+import json
+from math import sqrt, atan2
+import serial
+import joblib
+import pywt
+import pandas as pd
+import time
+
 
 DATA_COLUMNS_NAMES = ["type", "id", "mac", "rssi", "rate", "sig_mode", "mcs", "bandwidth", "smoothing", "not_sounding", "aggregation", "stbc", "fec_coding",
                       "sgi", "noise_floor", "ampdu_cnt", "channel", "secondary_channel", "local_timestamp", "ant", "sig_len", "rx_state", "len", "first_word", "data"]
@@ -68,21 +80,3 @@ while True:
     real2 = []
     amplitudes = []
     phases = []
-
-    # print(csi_raw_data[0])
-
-    for i in range(len(csi_raw_data1)):
-        if i % 2 == 0:
-            imaginary1.append(csi_raw_data1[i])
-            print("Append to Imaginary index:", i)
-        else:
-            real1.append(csi_raw_data1[i])
-            print("Append to Real index:", i)
-
-    for i in range(len(csi_raw_data2)):
-        if i % 2 == 0:
-            imaginary2.append(csi_raw_data2[i])
-            print("Append to Imaginary index:", i)
-        else:
-            real2.append(csi_raw_data2[i])
-            print("Append to Real index:", i)
