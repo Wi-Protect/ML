@@ -176,7 +176,7 @@ wavelet_list = np.zeros((1, 25))
 
 time.sleep(2)
 
-for i in range(20):
+for j in range(20):
 
     count = 0
 
@@ -297,5 +297,5 @@ for i in range(20):
 
     # csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
 
-    print("Data Collected :" + str(i))
+    print("Data Collected :" + str(j))
     # print("CSI_DATA : ", csi_list.shape)
