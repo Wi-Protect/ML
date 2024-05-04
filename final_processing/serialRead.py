@@ -176,7 +176,8 @@ def csi_data_read_parse():
 
 a = 0
 
-while True:
-    a += 1
-    csi = csi_data_read_parse()
-    print("Data Collected : ", a)
+if __name__ == "__main__":
+    while True:
+        a += 1
+        csi = csi_data_read_parse()
+        print("Data Collected : ", a)
