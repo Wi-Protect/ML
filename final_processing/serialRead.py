@@ -47,6 +47,9 @@ scales = np.arange(1, 128)
 
 count = 0
 
+csi_list = np.zeros((1, 260))
+
+startTime = datetime.datetime.now()
 
 while True:
     strings1 = str(ser1.readline())
