@@ -71,9 +71,6 @@ def csi_data_read_parse():
         strings1 = strings1.lstrip('b\'').rstrip('\\r\\n\'')
         strings2 = strings2.lstrip('b\'').rstrip('\\r\\n\'')
 
-        strings1 = strings1.lstrip(',')
-        strings2 = strings2.lstrip(',')
-
         index1 = strings1.find('CSI_DATA')
         index2 = strings2.find('CSI_DATA')
 
@@ -87,8 +84,8 @@ def csi_data_read_parse():
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
             print("element number is not equal")
-            print(strings1)
-            print(strings2)
+            print(index1)
+            print(index2)
             continue
 
         try:
