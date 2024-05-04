@@ -62,10 +62,10 @@ def csi_data_read_parse():
 
     startTime = datetime.datetime.now()
 
-    while True:
+    ser1.reset_input_buffer()
+    ser2.reset_input_buffer()
 
-        ser1.reset_input_buffer()
-        ser2.reset_input_buffer()
+    while True:
 
         strings1 = str(ser1.readline())
         strings2 = str(ser2.readline())
