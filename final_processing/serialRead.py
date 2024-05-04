@@ -305,7 +305,7 @@ def caliberate():
         # csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
 
         print("Data Collected :" + str(i))
-        print("CSI_DATA : ", csi_list.shape)
+        # print("CSI_DATA : ", csi_list.shape)
 
 
 caliberate()
