@@ -77,6 +77,9 @@ def csi_data_read_parse():
         if index1 == -1 or index2 == -1:
             continue
 
+        strings1 = strings1[index1:]
+        strings2 = strings2[index2:]
+
         csv_reader1 = csv.reader(StringIO(strings1))
         csv_reader2 = csv.reader(StringIO(strings2))
         csi_data1 = next(csv_reader1)
