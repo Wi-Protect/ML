@@ -94,8 +94,6 @@ def csi_data_read_parse():
             ser1.reset_input_buffer()
             ser2.reset_input_buffer()
             print("element number is not equal")
-            print(index1)
-            print(index2)
             continue
 
         try:
@@ -189,9 +187,58 @@ def csi_data_read_parse():
                     continue
 
 
-a = 0
+def get25(group):
+    fraction = len(group) / 25
+    forPredict = []
+    for i in range(1, 26):
+        index = int(i * fraction)
+        forPredict.append(group.iloc[index-1])
 
-while True:
-    a += 1
-    csi = csi_data_read_parse()
-    print("Data Collected : ", a)
+    return forPredict
+
+
+def getWavelet(data):
+    X = data.drop(columns=['id', 'time'])
+    pca_X = pd.DataFrame(pca.transform(X))
+    coefficients, frequencies = pywt.cwt(
+        pca_X.iloc[:, 0], scales, wavelet_name)
+    wavelet_variances = np.sum(coefficients**2, axis=0)
+    return wavelet_variances
+
+
+def calibrate():
+
+    print("Calibrating Started...")
+
+    wavelet_list = np.zeros((1, 25))
+
+    time.sleep(2)
+
+    for i in range(20):
+
+        csi_data = csi_data_read_parse(ser1, ser2)
+
+        csi_data = pd.DataFrame(csi_data)
+
+        csi_data.columns = AMP_AND_PHASE_COLUMNS_NAMES
+
+        forTrain = get25(csi_data)
+        wavelet = getWavelet(pd.DataFrame(forTrain))
+        wavelet_list = np.vstack([wavelet_list, wavelet])
+
+        print("Data Point Collected : ", i)
+
+    wavelet_list = np.delete(wavelet_list, np.s_[:1], axis=0)
+
+    wavelet_list = pd.DataFrame(wavelet_list)
+
+    wavelet_list.columns = [str(i) for i in range(0, 25)]
+
+    print("Calibrating...")
+
+    gmm_models[0].fit(wavelet_list)
+
+    print("Calibration Completed...")
+
+
+calibrate()
