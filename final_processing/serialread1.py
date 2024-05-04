@@ -7,5 +7,5 @@ ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
 
 
 while True:
-    strings1 = str(ser1.readline())
+    strings1 = ser1.readline().decode('utf-8')
     print(strings1)
