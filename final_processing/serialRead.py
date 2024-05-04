@@ -87,8 +87,8 @@ def csi_data_read_parse():
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
             print("element number is not equal")
-            print(index1)
-            print(index2)
+            print(csi_data1)
+            print(csi_data2)
             continue
 
         try:
