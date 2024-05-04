@@ -172,7 +172,7 @@ def calibrate():
 
     print("Calibrating Started...")
 
-    wavelet_list = np.zeros((1, 25))
+    # wavelet_list = np.zeros((1, 25))
 
     for i in range(20):
 
