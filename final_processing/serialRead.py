@@ -112,9 +112,37 @@ while True:
         amplitudes.append(sqrt(imaginary2[i] ** 2 + real2[i] ** 2))
         phases.append(atan2(imaginary2[i], real2[i]))
 
-    print('APMLITUDES')
-    print(amplitudes)
-    print("--------------------------")
-    print('PHASES')
-    print(phases)
-    print("--------------------------")
+    now = datetime.datetime.now()
+
+    if count == 0:
+        startTime = now
+
+    if startTime + datetime.timedelta(seconds=1) >= datetime.datetime.now():
+        count += 1
+        timeString = now.strftime("%H:%M:%S.%f")
+        csi_list = np.vstack(
+            [csi_list, [csi_data1[1]] + [timeString] + amplitudes+phases + [csi_data1[3]] + [csi_data2[3]]])
+        if count == 1:
+            csi_list = np.delete(csi_list, np.s_[:1], axis=0)
+
+    else:
+
+        if count >= 25:
+            print(csi_list)
+        else:
+            count -= 1
+            csi_list = np.delete(csi_list, np.s_[:1], axis=0)
+            try:
+                startTime = datetime.datetime.strptime(
+                    csi_list[0, 1], "%H:%M:%S.%f")
+                startTime = datetime.datetime.combine(
+                    datetime.date.today(), startTime.time())
+            except:
+                print("Error in time conversion")
+                count = 0
+
+                csi_list = np.zeros((1, 260))
+
+                startTime = datetime.datetime.now()
+
+                continue
