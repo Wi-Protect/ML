@@ -55,12 +55,6 @@ def csi_data_read_parse():
     # else:
     #     print("open failed SER 2")
 
-    ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
-                         bytesize=8, parity='N', stopbits=1)
-
-    ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
-                         bytesize=8, parity='N', stopbits=1)
-
     count = 0
 
     csi_list = np.zeros((1, 260))
@@ -70,8 +64,8 @@ def csi_data_read_parse():
     while True:
         strings1 = str(ser1.readline())
         strings2 = str(ser2.readline())
-        # print(strings)
-        if strings1 == "" or strings2 == "":
+
+        if not strings1 or not strings2:
             continue
 
         strings1 = strings1.lstrip('b\'').rstrip('\\r\\n\'')
@@ -89,6 +83,8 @@ def csi_data_read_parse():
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
             print("element number is not equal")
+            print(csi_data1)
+            print(csi_data2)
             continue
 
         try:
@@ -157,10 +153,6 @@ def csi_data_read_parse():
         else:
 
             if count >= 25:
-                strings1 = ""
-                strings2 = ""
-                ser1.close()
-                ser2.close()
                 return csi_list
                 # print("Data Collected")
             else:
@@ -184,8 +176,7 @@ def csi_data_read_parse():
 
 a = 0
 
-if __name__ == "__main__":
-    while True:
-        a += 1
-        csi = csi_data_read_parse()
-        print("Data Collected : ", a)
+while True:
+    a += 1
+    csi = csi_data_read_parse()
+    print("Data Collected : ", a)
