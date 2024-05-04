@@ -177,6 +177,9 @@ def csi_data_read_parse():
                     continue
 
 
+a = 0
+
 while True:
+    a += 1
     csiData = csi_data_read_parse()
-    print(csiData.shape)
+    print("Data Collected:", a)
