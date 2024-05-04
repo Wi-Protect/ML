@@ -47,126 +47,127 @@ ser2 = serial.Serial(port=SERIAL_PORT_2, baudrate=921600,
                      bytesize=8, parity='N', stopbits=1)
 
 
-count = 0
+def csi_data_read_parse():
+    count = 0
 
-csi_list = np.zeros((1, 260))
+    csi_list = np.zeros((1, 260))
 
-startTime = datetime.datetime.now()
+    startTime = datetime.datetime.now()
 
-while True:
-    strings1 = str(ser1.readline())
-    strings2 = str(ser2.readline())
-    # print(strings)
-    if not strings1 or not strings2:
-        continue
+    while True:
+        strings1 = str(ser1.readline())
+        strings2 = str(ser2.readline())
+        # print(strings)
+        if not strings1 or not strings2:
+            continue
 
-    strings1 = strings1.lstrip('b\'').rstrip('\\r\\n\'')
-    strings2 = strings2.lstrip('b\'').rstrip('\\r\\n\'')
-    index1 = strings1.find('CSI_DATA')
-    index2 = strings2.find('CSI_DATA')
+        strings1 = strings1.lstrip('b\'').rstrip('\\r\\n\'')
+        strings2 = strings2.lstrip('b\'').rstrip('\\r\\n\'')
+        index1 = strings1.find('CSI_DATA')
+        index2 = strings2.find('CSI_DATA')
 
-    if index1 == -1 or index2 == -1:
-        continue
+        if index1 == -1 or index2 == -1:
+            continue
 
-    csv_reader1 = csv.reader(StringIO(strings1))
-    csv_reader2 = csv.reader(StringIO(strings2))
-    csi_data1 = next(csv_reader1)
-    csi_data2 = next(csv_reader2)
+        csv_reader1 = csv.reader(StringIO(strings1))
+        csv_reader2 = csv.reader(StringIO(strings2))
+        csi_data1 = next(csv_reader1)
+        csi_data2 = next(csv_reader2)
 
-    if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
-        print("element number is not equal")
+        if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
+            print("element number is not equal")
 
-        continue
+            continue
 
-    try:
-        csi_raw_data1 = json.loads(csi_data1[-1])
-        csi_raw_data2 = json.loads(csi_data2[-1])
-    except json.JSONDecodeError:
-        print(f"data is incomplete")
+        try:
+            csi_raw_data1 = json.loads(csi_data1[-1])
+            csi_raw_data2 = json.loads(csi_data2[-1])
+        except json.JSONDecodeError:
+            print(f"data is incomplete")
 
-        continue
+            continue
 
-    if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
+        if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
 
-        print(f"element number is not equal: {len(csi_raw_data1)}")
+            print(f"element number is not equal: {len(csi_raw_data1)}")
 
-        continue
+            continue
 
-    if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
-        print(f"element number is not equal: {len(csi_raw_data2)}")
+        if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
+            print(f"element number is not equal: {len(csi_raw_data2)}")
 
-        continue
+            continue
 
-    imaginary1 = []
-    real1 = []
-    imaginary2 = []
-    real2 = []
-    amplitudes = []
-    phases = []
+        imaginary1 = []
+        real1 = []
+        imaginary2 = []
+        real2 = []
+        amplitudes = []
+        phases = []
 
-    # print(csi_raw_data[0])
+        # print(csi_raw_data[0])
 
-    for i in range(len(csi_raw_data1)):
-        if i % 2 == 0:
-            imaginary1.append(csi_raw_data1[i])
+        for i in range(len(csi_raw_data1)):
+            if i % 2 == 0:
+                imaginary1.append(csi_raw_data1[i])
+            else:
+                real1.append(csi_raw_data1[i])
+
+        for i in range(len(csi_raw_data2)):
+            if i % 2 == 0:
+                imaginary2.append(csi_raw_data2[i])
+            else:
+                real2.append(csi_raw_data2[i])
+
+        # Transform imaginary and real into amplitude and phase
+        for i in range(int(len(csi_raw_data1) / 2)):
+            amplitudes.append(sqrt(imaginary1[i] ** 2 + real1[i] ** 2))
+            phases.append(atan2(imaginary1[i], real1[i]))
+
+        for i in range(int(len(csi_raw_data2) / 2)):
+            amplitudes.append(sqrt(imaginary2[i] ** 2 + real2[i] ** 2))
+            phases.append(atan2(imaginary2[i], real2[i]))
+
+        # print([csi_data[1]] + amplitudes+phases)
+        # csi_list.append([csi_data[1]] + amplitudes+phases)
+
+        # Get current date and time
+
+        now = datetime.datetime.now()
+
+        if count == 0:
+            startTime = now
+
+        if startTime + datetime.timedelta(seconds=1) >= datetime.datetime.now():
+            count += 1
+            timeString = now.strftime("%H:%M:%S.%f")
+            csi_list = np.vstack(
+                [csi_list, [csi_data1[1]] + [timeString] + amplitudes+phases + [csi_data1[3]] + [csi_data2[3]]])
+            if count == 1:
+                csi_list = np.delete(csi_list, np.s_[:1], axis=0)
+
         else:
-            real1.append(csi_raw_data1[i])
 
-    for i in range(len(csi_raw_data2)):
-        if i % 2 == 0:
-            imaginary2.append(csi_raw_data2[i])
-        else:
-            real2.append(csi_raw_data2[i])
+            if count >= 25:
+                # print("Data Collected")
+                return csi_list
+            else:
+                count -= 1
+                csi_list = np.delete(csi_list, np.s_[:1], axis=0)
+                try:
+                    startTime = datetime.datetime.strptime(
+                        csi_list[0, 1], "%H:%M:%S.%f")
+                    startTime = datetime.datetime.combine(
+                        datetime.date.today(), startTime.time())
+                except:
+                    print("Error in time conversion")
+                    count = 0
 
-    # Transform imaginary and real into amplitude and phase
-    for i in range(int(len(csi_raw_data1) / 2)):
-        amplitudes.append(sqrt(imaginary1[i] ** 2 + real1[i] ** 2))
-        phases.append(atan2(imaginary1[i], real1[i]))
+                    csi_list = np.zeros((1, 260))
 
-    for i in range(int(len(csi_raw_data2) / 2)):
-        amplitudes.append(sqrt(imaginary2[i] ** 2 + real2[i] ** 2))
-        phases.append(atan2(imaginary2[i], real2[i]))
+                    startTime = datetime.datetime.now()
 
-    # print([csi_data[1]] + amplitudes+phases)
-    # csi_list.append([csi_data[1]] + amplitudes+phases)
-
-    # Get current date and time
-
-    now = datetime.datetime.now()
-
-    if count == 0:
-        startTime = now
-
-    if startTime + datetime.timedelta(seconds=1) >= datetime.datetime.now():
-        count += 1
-        timeString = now.strftime("%H:%M:%S.%f")
-        csi_list = np.vstack(
-            [csi_list, [csi_data1[1]] + [timeString] + amplitudes+phases + [csi_data1[3]] + [csi_data2[3]]])
-        if count == 1:
-            csi_list = np.delete(csi_list, np.s_[:1], axis=0)
-
-    else:
-
-        if count >= 25:
-            print("Data Collected")
-            # return csi_list
-        else:
-            count -= 1
-            csi_list = np.delete(csi_list, np.s_[:1], axis=0)
-            try:
-                startTime = datetime.datetime.strptime(
-                    csi_list[0, 1], "%H:%M:%S.%f")
-                startTime = datetime.datetime.combine(
-                    datetime.date.today(), startTime.time())
-            except:
-                print("Error in time conversion")
-                count = 0
-
-                csi_list = np.zeros((1, 260))
-
-                startTime = datetime.datetime.now()
-
-                continue
+                    continue
 
 
 def caliberate():
