@@ -90,7 +90,7 @@ for j in range(20):
             print("----1-----")
             print(csi_data1[-1])
             # print("csi data1 len: ", len(list(csi_data1[-1])))
-            csi_raw_data1 = csi_data1[-1].split(",")
+            csi_raw_data1 = csi_data1[-1].lstrip('[').rstrip(']').split(",")
             print(csi_raw_data1)
             print("Converted data 1 len: ", len(csi_raw_data1))
 
