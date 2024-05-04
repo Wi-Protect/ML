@@ -96,20 +96,16 @@ def csi_data_read_parse():
             print("element number is not equal")
             continue
 
-        # try:
-        #     csi_raw_data1 = json.loads(csi_data1[-1])
-        #     csi_raw_data2 = json.loads(csi_data2[-1])
-        # except json.JSONDecodeError:
-        #     ser1.reset_input_buffer()
-        #     ser2.reset_input_buffer()
-        #     print(f"data is incomplete")
-        #     continue
-
-        csi_raw_data1 = json.loads(csi_data1[-1])
-        csi_raw_data2 = json.loads(csi_data2[-1])
-
-        print(csi_raw_data1)
-        print(csi_raw_data2)
+        try:
+            csi_raw_data1 = json.loads(csi_data1[-1])
+            csi_raw_data2 = json.loads(csi_data2[-1])
+        except json.JSONDecodeError:
+            ser1.reset_input_buffer()
+            ser2.reset_input_buffer()
+            print(csi_raw_data1)
+            print(csi_raw_data2)
+            print(f"data is incomplete")
+            continue
 
         if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
             ser1.reset_input_buffer()
