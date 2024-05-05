@@ -302,7 +302,7 @@ calibrate()
 i = 0
 
 def playAlarm():
-    soundPath = "final_processing/alarm/classic-alarm.wav"
+    soundPath = "classic-alarm.wav"
     os.system("aplay " + soundPath)
 
 def startPrediction():
