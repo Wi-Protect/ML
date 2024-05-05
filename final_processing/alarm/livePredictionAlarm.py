@@ -22,7 +22,7 @@ SERIAL_PORT_1 = '/dev/ttyUSB0'
 SERIAL_PORT_2 = '/dev/ttyUSB1'
 
 
-save_dir = './models/'
+save_dir = '../models/'
 
 
 ser1 = serial.Serial(port=SERIAL_PORT_1, baudrate=921600,
@@ -38,7 +38,7 @@ for i in range(6):
     loaded_gmm_model = joblib.load(model_path)
     gmm_models.append(loaded_gmm_model)
 
-pca = joblib.load('./models/pca_model.joblib')
+pca = joblib.load('../models/pca_model.joblib')
 
 wavelet_name = 'gaus1'
 
