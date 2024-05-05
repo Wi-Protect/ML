@@ -281,7 +281,7 @@ def calibrate():
         wavelet = getWavelet(pd.DataFrame(forTrain))
         wavelet_list = np.vstack([wavelet_list, wavelet])
 
-        print("Data Point Collected : ", i)
+        print("\tData Point Collected : ", i)
 
     wavelet_list = np.delete(wavelet_list, np.s_[:1], axis=0)
 
@@ -313,9 +313,9 @@ def startPrediction():
 
         pred = getPrediction(csi_data)
 
-        print("Time: " + str(datetime.datetime.now()), end=" ")
+        print("\tTime: " + str(datetime.datetime.now()), end="")
 
-        print("\tPrediction:\tACTIVITY" + str(pred))
+        print("\tPrediction:  ACTIVITY" + str(pred))
 
 
 startPrediction()
