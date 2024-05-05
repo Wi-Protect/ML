@@ -9,6 +9,7 @@ import joblib
 import pywt
 import pandas as pd
 import time
+import warnings
 
 DATA_COLUMNS_NAMES = ["type", "id", "mac", "rssi", "rate", "sig_mode", "mcs", "bandwidth", "smoothing", "not_sounding", "aggregation", "stbc", "fec_coding",
                       "sgi", "noise_floor", "ampdu_cnt", "channel", "secondary_channel", "local_timestamp", "ant", "sig_len", "rx_state", "len", "first_word", "data"]
@@ -82,7 +83,7 @@ def csi_data_read_parse(ser1, ser2):
         csi_data2 = next(csv_reader2)
 
         if len(csi_data1) != len(DATA_COLUMNS_NAMES) or len(csi_data2) != len(DATA_COLUMNS_NAMES):
-            print("element number is not equal")
+            # print("element number is not equal")
             # print(csi_data1)
             # print(csi_data2)
             continue
@@ -91,18 +92,20 @@ def csi_data_read_parse(ser1, ser2):
             csi_raw_data1 = json.loads(csi_data1[-1])
             csi_raw_data2 = json.loads(csi_data2[-1])
         except json.JSONDecodeError:
-            print(f"data is incomplete")
+            # print(f"data is incomplete")
             # print(csi_data1)
             # print(csi_data2)
             continue
 
         if len(csi_raw_data1) != 128 and len(csi_raw_data1) != 256 and len(csi_raw_data1) != 384:
-            print(f"element number is not equal: {len(csi_raw_data1)}")
-            # print(csi_data1)
+            # print(f"element number is not equal: {len(csi_raw_data1)}")
+            warnings.warn(f"element number is not equal: {len(csi_raw_data1)}")
+            #  print(csi_data1)
             continue
 
         if len(csi_raw_data2) != 128 and len(csi_raw_data2) != 256 and len(csi_raw_data2) != 384:
-            print(f"element number is not equal: {len(csi_raw_data2)}")
+            # print(f"element number is not equal: {len(csi_raw_data2)}")
+            warnings.warn(f"element number is not equal: {len(csi_raw_data1)}")
             # print(csi_data2)
             continue
 
