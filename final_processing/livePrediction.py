@@ -281,7 +281,7 @@ def calibrate():
         wavelet = getWavelet(pd.DataFrame(forTrain))
         wavelet_list = np.vstack([wavelet_list, wavelet])
 
-        print("\tData Point Collected : ", i)
+        print("\tData Point Collected : ", i+1)
 
     wavelet_list = np.delete(wavelet_list, np.s_[:1], axis=0)
 
