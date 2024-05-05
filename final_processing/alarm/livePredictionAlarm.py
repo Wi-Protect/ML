@@ -9,6 +9,7 @@ import joblib
 import pywt
 import pandas as pd
 import time
+import os
 
 DATA_COLUMNS_NAMES = ["type", "id", "mac", "rssi", "rate", "sig_mode", "mcs", "bandwidth", "smoothing", "not_sounding", "aggregation", "stbc", "fec_coding",
                       "sgi", "noise_floor", "ampdu_cnt", "channel", "secondary_channel", "local_timestamp", "ant", "sig_len", "rx_state", "len", "first_word", "data"]
@@ -300,6 +301,9 @@ calibrate()
 
 i = 0
 
+def playAlarm():
+    soundPath = "final_processing\alarm\classic-alarm.wav"
+    os.system("aplay " + soundPath)
 
 def startPrediction():
 
@@ -316,6 +320,10 @@ def startPrediction():
         print("\tTime: " + str(datetime.datetime.now()), end="")
 
         print("\tPrediction:  ACTIVITY" + str(pred))
+
+        # trigger alarm when pred is 2
+        if pred == 2:
+            playAlarm()
 
 
 startPrediction()
