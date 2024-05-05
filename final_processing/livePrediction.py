@@ -263,7 +263,7 @@ def getPrediction(group):
 
 def calibrate():
 
-    print("Calibrating Started...")
+    print("Calibration Started...")
 
     wavelet_list = np.zeros((1, 25))
 
@@ -313,9 +313,9 @@ def startPrediction():
 
         pred = getPrediction(csi_data)
 
-        print("Time" + str(datetime.datetime.now()))
+        print("Time: " + str(datetime.datetime.now()), end=" ")
 
-        print("activity" + str(pred))
+        print("\tPrediction:\tACTIVITY" + str(pred))
 
 
 startPrediction()
