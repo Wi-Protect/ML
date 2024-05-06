@@ -307,7 +307,7 @@ i = 0
 
 def playAlarm():
     soundPath = "classic-alarm.wav"
-    os.system("aplay " + soundPath)
+    os.system("aplay " + soundPath + " > /dev/null 2>&1")
 
 def startPrediction():
 
