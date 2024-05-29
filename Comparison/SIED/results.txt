@@ -53,9 +53,46 @@ Classification Report:
    macro avg       0.46      0.32      0.32       933
 weighted avg       0.65      0.41      0.46       933
 
+(Windows Size: 3 seconds)
+Accuracy: 0.43086816720257237
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.73      0.57      0.64       167
+           1       0.01      0.07      0.01        15
+           2       0.81      0.29      0.43       129
+
+    accuracy                           0.43       311
+   macro avg       0.51      0.31      0.36       311
+weighted avg       0.73      0.43      0.52       311
 
 
 DAY MODE RECOGNITION
 ====================
+
+(Windows Size: 1 second)
+Accuracy: 0.6302250803858521
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.62      0.88      0.73       526
+           1       0.66      0.31      0.42       407
+
+    accuracy                           0.63       933
+   macro avg       0.64      0.59      0.58       933
+weighted avg       0.64      0.63      0.60       933
+
+(Windows Size: 3 seconds)
+Accuracy: 0.7170418006430869
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.70      0.92      0.79       182
+           1       0.79      0.43      0.56       129
+
+    accuracy                           0.72       311
+   macro avg       0.74      0.68      0.68       311
+weighted avg       0.73      0.72      0.70       311
+
 
 
