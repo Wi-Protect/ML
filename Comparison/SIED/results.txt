@@ -70,6 +70,8 @@ weighted avg       0.73      0.43      0.52       311
 DAY MODE RECOGNITION
 ====================
 
+== Case #1: Wake up --> Static Data ==
+
 (Windows Size: 1 second)
 Accuracy: 0.6302250803858521
 Classification Report:
@@ -94,5 +96,31 @@ Classification Report:
    macro avg       0.74      0.68      0.68       311
 weighted avg       0.73      0.72      0.70       311
 
+
+== Case #2: Wake up --> Intrusion
+
+(Windows Size: 1 second)
+Accuracy: 0.6195069667738478
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.58      0.90      0.71       478
+           1       0.76      0.32      0.45       455
+
+    accuracy                           0.62       933
+   macro avg       0.67      0.61      0.58       933
+weighted avg       0.67      0.62      0.58       933
+
+(Windows Size: 3 seconds)
+Accuracy: 0.7202572347266881
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.67      0.96      0.79       167
+           1       0.90      0.44      0.60       144
+
+    accuracy                           0.72       311
+   macro avg       0.78      0.70      0.69       311
+weighted avg       0.78      0.72      0.70       311
 
 
