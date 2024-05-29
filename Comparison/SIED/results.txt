@@ -1,0 +1,61 @@
+ACTIVITY RECOGNITION
+====================
+Windows Size: 1 second
+
+Accuracy: 0.23258306538049303
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.39      0.46      0.42       342
+           1       0.12      0.15      0.13       130
+           2       0.25      0.01      0.02       112
+           3       0.00      0.00      0.00        98
+           4       0.06      0.12      0.08       136
+           5       0.27      0.19      0.22       115
+
+    accuracy                           0.23       933
+   macro avg       0.18      0.15      0.15       933
+weighted avg       0.23      0.23      0.21       933
+
+
+Windows Size: 3 seconds
+
+Accuracy: 0.1639871382636656
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.38      0.20      0.26       134
+           1       0.11      0.17      0.13        42
+           2       0.31      0.31      0.31        35
+           3       1.00      0.03      0.07        29
+           4       0.00      0.00      0.00        33
+           5       0.07      0.13      0.09        38
+
+    accuracy                           0.16       311
+   macro avg       0.31      0.14      0.14       311
+weighted avg       0.32      0.16      0.18       311
+
+
+
+NIGHT MODE RECOGNITION
+======================
+(Windows Size: 1 second)
+
+Accuracy: 0.4137191854233655
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.67      0.65      0.66       478
+           1       0.02      0.15      0.03        48
+           2       0.69      0.17      0.27       407
+
+    accuracy                           0.41       933
+   macro avg       0.46      0.32      0.32       933
+weighted avg       0.65      0.41      0.46       933
+
+
+
+DAY MODE RECOGNITION
+====================
+
+
